@@ -1,0 +1,231 @@
+{
+  "_meta": {
+    "generatedBy": "detect-stack command / stack-detector agent",
+    "detectedAt": "2025-11-14T10:23:41Z",
+    "projectRoot": "/Users/dev/acme-dashboard"
+  },
+
+  "framework": {
+    "name": "next",
+    "version": "15.x",
+    "router": "app",
+    "rendering": ["rsc", "client-components"],
+    "notes": [
+      "App Router confirmed via app/ directory structure",
+      "Server Actions in use (use server directives detected)",
+      "Parallel routes detected: app/@modal/",
+      "next.config.ts (TypeScript config) — not next.config.js"
+    ]
+  },
+
+  "language": {
+    "typescript": true,
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+
+  "styling": {
+    "tailwind": {
+      "installed": true,
+      "version": "4.x",
+      "config": "css-only",
+      "configFile": "src/app/globals.css",
+      "tokenSystem": "custom",
+      "notes": [
+        "@import 'tailwindcss' (v4 syntax, no tailwind.config.js)",
+        "@theme block defines custom tokens",
+        "Semantic token pattern: --color-brand, --color-surface-*",
+        "Dark mode via [data-theme=dark] on <html>"
+      ]
+    },
+    "globalCss": "src/app/globals.css",
+    "cn": {
+      "available": true,
+      "path": "@/lib/utils",
+      "implementation": "clsx + tailwind-merge"
+    }
+  },
+
+  "componentLibrary": {
+    "name": "shadcn",
+    "version": "v4",
+    "componentsDir": "src/components/ui/",
+    "detectedComponents": [
+      "button",
+      "dialog",
+      "dropdown-menu",
+      "form",
+      "input",
+      "label",
+      "select",
+      "sheet",
+      "skeleton",
+      "table",
+      "tabs",
+      "toast"
+    ],
+    "notes": [
+      "components.json present — shadcn CLI configured",
+      "Registry path: src/components/ui/ (v4 convention)",
+      "Radix UI primitives used directly in several components"
+    ]
+  },
+
+  "radix": {
+    "installed": true,
+    "packages": [
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-label",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-select",
+      "@radix-ui/react-slot",
+      "@radix-ui/react-tabs",
+      "@radix-ui/react-toast",
+      "@radix-ui/react-tooltip"
+    ]
+  },
+
+  "animation": {
+    "name": "motion",
+    "importPath": "motion/react",
+    "version": "12.x",
+    "notes": [
+      "motion/react (not framer-motion) — v12+ package name",
+      "AnimatePresence used in dialog-related components",
+      "useReducedMotion not yet in use — recommend adding",
+      "No spring presets defined — recommend extracting to lib/spring.ts"
+    ]
+  },
+
+  "forms": {
+    "library": "react-hook-form",
+    "version": "7.x",
+    "validation": "zod",
+    "resolver": "@hookform/resolvers/zod",
+    "notes": [
+      "zodResolver used in all form instances",
+      "Cross-field validation via .superRefine() in 2 schemas",
+      "mode: 'onBlur' is the project standard"
+    ]
+  },
+
+  "dataFetching": {
+    "primary": "tanstack-query",
+    "version": "5.x",
+    "notes": [
+      "@tanstack/react-query v5 (not v4 — different API)",
+      "QueryClient configured in app/providers.tsx",
+      "Suspense not yet adopted — queries use isPending pattern"
+    ]
+  },
+
+  "tables": {
+    "library": "@tanstack/react-table",
+    "version": "8.x",
+    "notes": [
+      "Column definitions in features/*/columns.tsx pattern",
+      "Server-side pagination via manualPagination: true",
+      "Sorting handled server-side"
+    ]
+  },
+
+  "icons": {
+    "library": "lucide-react",
+    "version": "0.x",
+    "notes": [
+      "All icons via lucide-react",
+      "aria-hidden used consistently on decorative icons",
+      "No custom SVG icons detected"
+    ]
+  },
+
+  "existingComponents": [
+    {
+      "path": "src/components/ui/button.tsx",
+      "type": "shadcn",
+      "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      "uses": "cva"
+    },
+    {
+      "path": "src/components/ui/dialog.tsx",
+      "type": "shadcn",
+      "notes": "No exit animation — AnimatePresence not wired in"
+    },
+    {
+      "path": "src/components/dashboard/metric-card.tsx",
+      "type": "custom",
+      "notes": "Uniform card for all metric types — candidate for polymorphic refactor"
+    },
+    {
+      "path": "src/components/dashboard/activity-feed.tsx",
+      "type": "custom",
+      "notes": "Mixed item types rendered as identical rows — polymorphic opportunity"
+    },
+    {
+      "path": "src/components/layout/sidebar.tsx",
+      "type": "custom",
+      "notes": "No motion on nav transitions"
+    }
+  ],
+
+  "designGaps": [
+    {
+      "severity": "high",
+      "location": "src/components/dashboard/activity-feed.tsx",
+      "issue": "Polymorphic content rendered as uniform cards",
+      "recommendation": "Implement discriminated union renderer: InviteRow, CommitRow, AlertRow each with distinct visual treatment"
+    },
+    {
+      "severity": "high",
+      "location": "src/components/ui/dialog.tsx",
+      "issue": "Dialog has no exit animation — unmounts instantly",
+      "recommendation": "Wrap AnimatePresence around conditional portal content; add slide-up spring"
+    },
+    {
+      "severity": "medium",
+      "location": "src/app/globals.css",
+      "issue": "No semantic content-hierarchy tokens (content-1, content-2, content-3)",
+      "recommendation": "Add --color-content-* tokens mapped to gray scale steps 12, 11, 9"
+    },
+    {
+      "severity": "medium",
+      "location": "global",
+      "issue": "useReducedMotion not used anywhere",
+      "recommendation": "Add useReducedMotion() check to all AnimatePresence and motion components"
+    },
+    {
+      "severity": "low",
+      "location": "src/components/ui/skeleton.tsx",
+      "issue": "Skeleton has no aria-busy on container",
+      "recommendation": "Add aria-busy='true' aria-label='Loading...' to skeleton wrapper"
+    },
+    {
+      "severity": "low",
+      "location": "src/components/ui/input.tsx",
+      "issue": "No aria-invalid or aria-describedby when in error state",
+      "recommendation": "Add aria-invalid={!!error} and aria-describedby pointing to error message"
+    }
+  ],
+
+  "recommendations": {
+    "polymorphicTargets": [
+      "activity-feed.tsx — 3 item types, currently uniform",
+      "notification-list.tsx — alert/invite/system types, currently uniform",
+      "search-results.tsx — user/project/file types, currently uniform cards"
+    ],
+    "missingPatterns": [
+      "AsyncState<T> pattern — no empty/error/loading state management convention",
+      "Spring presets — no shared motion vocabulary across components",
+      "CVA adoption — button uses CVA but other multi-variant components do not"
+    ],
+    "priorityWork": [
+      "1. Add AnimatePresence to Dialog (high impact, low effort)",
+      "2. Refactor activity-feed.tsx to polymorphic renderer (high impact, medium effort)",
+      "3. Add semantic content tokens to globals.css (medium impact, low effort)",
+      "4. Audit all forms for ARIA completeness (medium impact, medium effort)"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "ui-design-pro",
+  "version": "1.0.0",
+  "description": "UI design theory and implementation toolkit combining visual design principles (Gestalt, Fitts's Law, WCAG 2.2) with source-code-backed component engineering (Radix, CVA, Motion, shadcn v4, Tailwind).",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": [
+    "design",
+    "ui",
+    "ux",
+    "tailwind",
+    "shadcn",
+    "radix",
+    "motion",
+    "animation",
+    "accessibility",
+    "wcag",
+    "components",
+    "react",
+    "nextjs",
+    "cva",
+    "polymorphic",
+    "gestalt",
+    "typography",
+    "color"
+  ]
+}

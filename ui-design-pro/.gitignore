@@ -1,0 +1,18 @@
+# Reference repos cloned by install.sh — do not commit (~200MB)
+refs/shadcn-ui/
+refs/radix-primitives/
+refs/radix-colors/
+refs/vaul/
+refs/sonner/
+refs/cmdk/
+refs/daisyui/
+refs/motion/
+refs/tailwindcss/
+refs/open-props/
+refs/radix-ui-themes/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
