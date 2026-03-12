@@ -1,0 +1,4 @@
+interface:
+  display_name: "SciPy Pro"
+  short_description: "Scientific Python and data science"
+  default_prompt: "Use $scipy-pro to build, debug, or review scientific Python, data science, NLP, graph, or knowledge-system work with source-verified patterns and library references."
