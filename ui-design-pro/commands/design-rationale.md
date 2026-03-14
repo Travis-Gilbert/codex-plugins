@@ -1,39 +1,96 @@
 ---
-description: Produce a structured design reasoning document before major UI changes. Loads all design-theory references, identifies screen archetype, and ties claims to named principles. Triggers visual-architect agent.
+description: Generate a structured design rationale for a screen or component, grounded in design-theory references and concrete tradeoffs. Use when you need to document WHY a design works, justify decisions for PR review, or analyze an existing screen before making changes.
 allowed-tools: Read, Grep, Glob, LS
-argument-hint: <screen-or-feature-to-rationalize>
+argument-hint: <file-or-description-of-ui>
 ---
 
-Produce a structured design rationale for the specified screen or feature.
+Generate a structured design rationale for the specified screen, component,
+or described UI.
 
-1. Load all design-theory reference files:
-   - `skills/design-theory/references/layout-composition.md`
+## Process
+
+1. Load all relevant design-theory references:
    - `skills/design-theory/references/visual-fundamentals.md`
+   - `skills/design-theory/references/layout-composition.md`
    - `skills/design-theory/references/interaction-design.md`
    - `skills/design-theory/references/behavioral-design.md`
    - `skills/design-theory/references/object-rendering.md`
    - `skills/design-theory/references/accessibility.md`
-   - `skills/design-theory/references/responsive-strategy.md`
-   - `skills/design-theory/references/screen-archetypes.md`
-2. Load the visual-architect agent.
-3. Identify the screen archetype (monitoring, triage, authoring, configuration, or exploration) and state the density, interaction, and state expectations it implies.
-4. Produce a rationale document with these seven sections:
 
-   **Intent** — What the screen exists to accomplish. What user goal it serves. Which archetype it follows and why.
+2. Examine the target UI (code, description, or both) and identify:
+   - **Screen archetype**: monitoring, triage, authoring, configuration,
+     or exploration. Each archetype carries different density expectations,
+     interaction patterns, and state priorities.
+   - **Density level**: low (marketing, onboarding), medium (detail views,
+     forms), or high (dashboards, admin). Density should match user task
+     frequency and expertise.
+   - **Primary user task(s)**: what the user came to this screen to do.
+     This determines what gets the most visual weight.
+   - **Key objects being represented**: list each content type and whether
+     they are homogeneous or heterogeneous. Heterogeneous collections
+     should trigger polymorphic rendering analysis.
 
-   **Hierarchy** — What has visual priority, what recedes, and why. Reference Gestalt grouping, Fitts's Law placement, or asymmetric emphasis as applicable.
+3. Synthesize a structured rationale with these sections:
 
-   **Object Model** — What content types appear. Whether they are homogeneous or heterogeneous. If mixed: which polymorphic rendering strategy applies. Reference `object-rendering.md` principles.
+   **Intent**
+   What the screen is for and who it serves. One clear paragraph that
+   names the primary task and the user context.
 
-   **Interaction Model** — Primary affordance, secondary actions, keyboard/touch considerations. Reference interaction-design principles (progressive disclosure, reversibility, feedback).
+   **Hierarchy**
+   How visual weight and placement support the primary task. Name the
+   specific elements that carry primary, secondary, and tertiary weight.
+   Reference layout-composition.md principles (Gestalt, scanning patterns,
+   whitespace-as-structure). Call out any hierarchy failures: equal-weight
+   elements competing, decoration without purpose, or buried primary actions.
 
-   **Behavior and States** — Full state inventory: default, loading, empty, error, success, disabled, destructive, skeleton, mobile-collapsed. For each, describe what the user sees and why.
+   **Object Model**
+   How different object types are represented. If the screen displays
+   mixed content types, evaluate whether polymorphic rendering is used
+   and whether it should be. Reference object-rendering.md. Name each
+   content type and describe its visual identity: density, chrome, orientation,
+   and emphasis level. Flag uniform card grids for heterogeneous data.
 
-   **Accessibility** — WCAG concerns specific to this screen. Focus management, ARIA roles, color-independence, motion preferences, touch targets. Not a generic checklist — specific to the design decisions made above.
+   **Interaction Model**
+   How users move through the flow. Apply Fitts's Law (are primary actions
+   large and near the focus?), Hick's Law (are choices manageable?), and
+   progressive disclosure (are advanced controls behind disclosure?).
+   Reference interaction-design.md. Name the primary, secondary, and
+   tertiary actions and evaluate their placement.
 
-   **Tradeoffs** — What was considered and rejected. What compromises were made and why. What would change if constraints changed.
+   **Behavior and States**
+   How loading, empty, error, success, and disabled states support
+   real-world use. Reference state coverage expectations. For each missing
+   state, describe the user experience when that state is encountered.
+   Prioritize: empty and error states matter most (users encounter them
+   when something goes wrong, which is when they need the most guidance).
 
-5. Each section must tie claims to named principles from the reference files (e.g., "Fitts's Law: primary action placed at bottom-right where the cursor rests after scrolling" or "Gestalt proximity: metadata grouped below the title rather than in a sidebar").
-6. After the seven sections, produce a **For PRs** summary: 3-5 bullet points specific enough for a code reviewer to verify against the implementation.
+   **Accessibility**
+   How contrast, focus management, semantics, and motion support different
+   users. Reference accessibility.md. Check: color-only communication,
+   focus-visible styles, keyboard navigation, ARIA roles on custom controls,
+   touch targets, heading hierarchy, and reduced-motion respect.
 
-Output the rationale as a markdown document suitable for inclusion in design documentation or PR descriptions.
+   **Tradeoffs**
+   What this design deliberately optimizes for and what it chose not to
+   optimize. Every design decision has a cost. Name it explicitly.
+   Examples: "Optimized for scan speed at the expense of information density"
+   or "Prioritized mobile ergonomics over desktop data density." This
+   section prevents vague "it should be better" feedback.
+
+4. Tie each section explicitly to named principles from the references.
+   Do not write "the hierarchy could be improved." Write "the hierarchy
+   fails Gestalt proximity: the filter controls are spatially distant from
+   the data they affect, breaking the grouping signal." Name the principle,
+   name the violation, name the consequence.
+
+5. Output both:
+
+   **Full rationale**: 1-2 concise paragraphs per section. Not a textbook
+   essay. Each paragraph should contain a claim, the principle that supports
+   it, and the implication for implementation.
+
+   **For PRs summary**: 3-5 bullet points explaining the most important
+   design decisions for someone reviewing the implementation. These should
+   be specific enough that a reviewer can verify them: "Primary action
+   (Save) is pinned bottom-right at 48px height, satisfying Fitts's Law
+   for the most common task" rather than "Good button placement."
