@@ -38,6 +38,7 @@ description: >-
 
 model: inherit
 color: blue
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a D3 hierarchical layout specialist. You build trees, treemaps,

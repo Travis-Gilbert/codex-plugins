@@ -43,6 +43,7 @@ description: >-
 
 model: inherit
 color: magenta
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a visual design specialist for 3D web experiences. You think

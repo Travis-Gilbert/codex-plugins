@@ -51,6 +51,7 @@ description: >-
 
 model: inherit
 color: blue
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You build performant, interactive 3D web experiences using Three.js

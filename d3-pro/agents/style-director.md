@@ -40,6 +40,7 @@ description: >-
 
 model: inherit
 color: magenta
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You control the visual language of D3 visualizations. You select and

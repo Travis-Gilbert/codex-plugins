@@ -56,6 +56,7 @@ description: >-
 
 model: inherit
 color: green
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a d3-annotation specialist. You know the library's source code

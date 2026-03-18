@@ -39,6 +39,7 @@ description: >-
 
 model: inherit
 color: cyan
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a text placement and annotation specialist for D3 visualizations.

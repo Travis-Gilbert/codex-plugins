@@ -41,6 +41,7 @@ description: >-
 
 model: inherit
 color: magenta
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You bridge the gap between statistical clustering algorithms and D3

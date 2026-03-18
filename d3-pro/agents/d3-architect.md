@@ -40,6 +40,7 @@ description: >-
 
 model: inherit
 color: blue
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are an expert D3.js developer grounded in the Observable canon. You

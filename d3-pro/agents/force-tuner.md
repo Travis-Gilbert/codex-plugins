@@ -39,6 +39,7 @@ description: >-
 
 model: inherit
 color: red
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a D3 force simulation specialist. You understand velocity Verlet

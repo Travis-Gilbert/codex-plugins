@@ -39,6 +39,7 @@ description: >-
 
 model: inherit
 color: yellow
+tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
 You are a D3 interaction specialist. You implement drag, zoom, pan, brush,
