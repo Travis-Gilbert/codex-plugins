@@ -17,6 +17,8 @@ The canonical path is in `~/.claude/plugins/installed_plugins.json` — only tha
 | django-design | 4.0.0 | `django-design/` |
 | d3-pro | 1.0.0 | `d3-pro/` |
 | three-pro | 1.0.0 | `three-pro/` |
+| shipit | 1.0.0 | `shipit/` |
+| ml-pro | 1.0.0 | `ml-pro/` |
 
 ## Sync
 

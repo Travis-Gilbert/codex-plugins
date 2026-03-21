@@ -107,6 +107,13 @@ Templates in `templates/` provide complete starting points:
 - **templates/rl-agent.py** - RL agent template with stable-baselines3,
   custom environment wrapper, and reward shaping.
 
+## Commands
+
+- `/ml-build` - Plan and build an ML system from a handoff doc or description
+- `/ml-debug` - Run the 5-step diagnostic protocol for training failures
+- `/ml-train` - Generate a complete training pipeline for a model
+- `/ml-deploy` - Export, optimize, and deploy a trained model
+
 ## Rules
 
 1. **Verify APIs against references.** Do not rely on training data for
@@ -169,7 +176,7 @@ Before considering any ML code complete, verify:
 
 **Evaluation**
 - [ ] Baseline metric is computed and reported
-- [ ] Evaluation uses `model.eval()` and `torch.no_grad()`
+- [ ] Evaluation uses inference mode and no_grad
 - [ ] Metrics match the task (not just accuracy for imbalanced data)
 
 **Data**

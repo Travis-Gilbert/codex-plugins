@@ -15,7 +15,7 @@ description: >-
   </example>
 
 model: inherit
-color: purple
+color: magenta
 tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
@@ -143,7 +143,6 @@ neg_edge = negative_sampling(
     num_nodes=data.num_nodes,
     num_neg_samples=pos_edge.size(1),
 )
-# Train: score pos_edge > score neg_edge
 pos_score = model(data.x, data.edge_index, pos_edge)
 neg_score = model(data.x, data.edge_index, neg_edge)
 loss = F.binary_cross_entropy_with_logits(
@@ -160,7 +159,6 @@ For pure KGE (no GNN), use PyKEEN:
 from pykeen.pipeline import pipeline
 from pykeen.triples import TriplesFactory
 
-# From file
 tf = TriplesFactory.from_path("triples.tsv")
 train, test = tf.split([0.8, 0.2], random_state=42)
 
@@ -175,7 +173,6 @@ result = pipeline(
     negative_sampler="basic",
     negative_sampler_kwargs=dict(num_negs_per_pos=128),
 )
-# result.metric_results has MRR, Hits@1/3/10
 ```
 
 ## Over-Smoothing Mitigation

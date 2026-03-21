@@ -100,7 +100,6 @@ def train(config, model, train_loader, val_loader):
     no_improve = 0
 
     for epoch in range(config.num_epochs):
-        # Train
         model.train()
         epoch_loss = 0
         for batch in train_loader:
@@ -121,10 +120,8 @@ def train(config, model, train_loader, val_loader):
 
             epoch_loss += loss.item()
 
-        # Validate
-        val_metrics = evaluate(model, val_loader, loss_fn, config)
+        val_metrics = validate(model, val_loader, loss_fn, config)
 
-        # Log
         wandb.log({
             "train/loss": epoch_loss / len(train_loader),
             "val/loss": val_metrics["loss"],
@@ -132,7 +129,6 @@ def train(config, model, train_loader, val_loader):
             "epoch": epoch,
         })
 
-        # Checkpoint
         if val_metrics["loss"] < best_val:
             best_val = val_metrics["loss"]
             no_improve = 0
@@ -168,11 +164,11 @@ def load_checkpoint(path, model, optimizer=None, scheduler=None):
     return state["epoch"], state["best_val"]
 ```
 
-### 6. Evaluation
+### 6. Validation
 ```python
 @torch.no_grad()
-def evaluate(model, loader, loss_fn, config):
-    model.eval()
+def validate(model, loader, loss_fn, config):
+    model.set_eval_mode()  # Switch to inference mode
     total_loss = 0
     all_preds, all_targets = [], []
 

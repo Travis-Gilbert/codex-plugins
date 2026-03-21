@@ -22,7 +22,7 @@ description: >-
   </example>
 
 model: inherit
-color: orange
+color: yellow
 tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash"]
 ---
 
@@ -73,7 +73,9 @@ print(f"Max allocated: {torch.cuda.max_memory_allocated() / 1e9:.2f} GB")
 ### Inference Latency
 
 ```python
-model.eval()
+# Switch model to inference mode
+model.requires_grad_(False)
+model.training = False
 dummy = torch.randn(1, *input_shape, device=device)
 
 # Warmup
@@ -81,7 +83,6 @@ for _ in range(10):
     model(dummy)
 torch.cuda.synchronize()
 
-# Measure
 import time
 times = []
 for _ in range(100):
@@ -111,7 +112,7 @@ Apply in this order. Each step roughly halves memory.
 
 | Step | Speedup | Quality Loss | Effort |
 |---|---|---|---|
-| 1. `model.eval()` + `torch.no_grad()` | 10-30% | None | 1 line |
+| 1. Switch to inference mode | 10-30% | None | 1 line |
 | 2. `torch.compile(model)` | 20-50% | None | 1 line |
 | 3. Dynamic quantization (int8) | 2x (CPU) | <1% | 3 lines |
 | 4. Static quantization (int8) | 2-3x | <1% | Calibration needed |
@@ -125,7 +126,8 @@ Apply in this order. Each step roughly halves memory.
 
 ```python
 dummy = torch.randn(1, *input_shape, device='cpu')
-model.eval().cpu()
+model.training = False
+model.cpu()
 torch.onnx.export(
     model, dummy, "model.onnx",
     input_names=["input"],
@@ -134,11 +136,9 @@ torch.onnx.export(
     opset_version=17,
 )
 
-# Verify
 import onnxruntime as ort
 session = ort.InferenceSession("model.onnx")
 result = session.run(None, {"input": dummy.numpy()})
-# Compare with PyTorch output
 ```
 
 ### TorchScript
@@ -146,7 +146,6 @@ result = session.run(None, {"input": dummy.numpy()})
 ```python
 scripted = torch.jit.script(model)
 scripted.save("model_scripted.pt")
-# or trace (simpler but less flexible)
 traced = torch.jit.trace(model, dummy)
 ```
 
@@ -163,11 +162,10 @@ model_int8 = torch.quantization.quantize_dynamic(
 ### Static (better quality, requires calibration)
 
 ```python
-model.eval()
+model.training = False
 model.qconfig = torch.quantization.get_default_qconfig('x86')
 model_prepared = torch.quantization.prepare(model)
 
-# Calibrate with representative data
 with torch.no_grad():
     for batch in calibration_loader:
         model_prepared(batch)
@@ -180,7 +178,6 @@ model_quantized = torch.quantization.convert(model_prepared)
 ### DDP (multi-GPU, model fits on one)
 
 ```python
-# train.py
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 
@@ -196,7 +193,7 @@ def main():
     loader = DataLoader(dataset, batch_size=32, sampler=sampler)
 
     for epoch in range(epochs):
-        sampler.set_epoch(epoch)  # critical for proper shuffling
+        sampler.set_epoch(epoch)
         train_epoch(model, loader)
 
     dist.destroy_process_group()
@@ -223,7 +220,7 @@ model = FSDP(model, auto_wrap_policy=policy,
 
 ## Serving Patterns
 
-### FastAPI + ONNX Runtime (simple, low-latency)
+### FastAPI + ONNX Runtime
 
 ```python
 from fastapi import FastAPI

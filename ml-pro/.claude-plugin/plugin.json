@@ -1,0 +1,27 @@
+{
+  "name": "ml-pro",
+  "version": "1.0.0",
+  "description": "ML engineering plugin: build, train, debug, and deploy machine learning systems with verified API knowledge. 5 domain-expert agents (model-architect, training-engineer, ml-debugger, graph-engineer, systems-optimizer), 6 reference files, 5 runnable templates, and 4 workflow commands.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": [
+    "machine-learning",
+    "pytorch",
+    "deep-learning",
+    "gnn",
+    "pytorch-geometric",
+    "transformers",
+    "huggingface",
+    "pykeen",
+    "knowledge-graph",
+    "training",
+    "debugging",
+    "deployment",
+    "onnx",
+    "quantization",
+    "reinforcement-learning",
+    "lora",
+    "fine-tuning"
+  ]
+}
