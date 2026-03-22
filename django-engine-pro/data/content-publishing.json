@@ -1,0 +1,40 @@
+{
+  "description": "Multi-type content hierarchy for polymorphic model demos",
+  "content_items": [
+    {
+      "type": "essay",
+      "title": "The Architecture of Observation",
+      "slug": "architecture-of-observation",
+      "body": "Every observation is a model of reality, compressed through the lens of the observer.",
+      "word_count": 2400
+    },
+    {
+      "type": "field_note",
+      "title": "Morning at the Wetland",
+      "slug": "morning-wetland",
+      "location": "42.3601,-71.0589",
+      "observation": "Red-winged blackbirds territorial along the eastern shore. Water level 2cm above seasonal average."
+    },
+    {
+      "type": "project",
+      "title": "Watershed Monitoring Network",
+      "slug": "watershed-monitoring",
+      "description": "Distributed sensor network for real-time watershed health tracking across 12 stations.",
+      "status": "active"
+    },
+    {
+      "type": "essay",
+      "title": "On the Nature of Connections",
+      "slug": "nature-of-connections",
+      "body": "Knowledge is not stored in nodes. It lives in the edges between them.",
+      "word_count": 1800
+    },
+    {
+      "type": "field_note",
+      "title": "Tide Pool Survey #47",
+      "slug": "tide-pool-47",
+      "location": "36.6177,-121.9166",
+      "observation": "Sea star population recovering. Three Pisaster ochraceus observed, first since 2019."
+    }
+  ]
+}

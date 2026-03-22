@@ -1,0 +1,57 @@
+{
+  "description": "Nodes, edges, and claims for knowledge graph model testing",
+  "nodes": [
+    {
+      "type": "concept",
+      "title": "Polymorphic Rendering",
+      "slug": "polymorphic-rendering",
+      "definition": "UI pattern where each content type receives its own visual treatment based on its type identity.",
+      "domain": "design"
+    },
+    {
+      "type": "concept",
+      "title": "Content Type System",
+      "slug": "content-type-system",
+      "definition": "Backend architecture where different content types share a queryable base but carry type-specific fields.",
+      "domain": "engineering"
+    },
+    {
+      "type": "claim",
+      "title": "Type preservation enables rendering",
+      "slug": "type-preservation-claim",
+      "statement": "If the backend flattens everything into a base class, the frontend loses the type signal needed for polymorphic rendering.",
+      "confidence": 0.92,
+      "evidence_count": 3
+    },
+    {
+      "type": "tension",
+      "title": "Performance vs Type Fidelity",
+      "slug": "performance-type-fidelity",
+      "description": "django-polymorphic provides type fidelity but at the cost of ContentType JOINs on every query. non_polymorphic() sacrifices fidelity for speed.",
+      "resolution_status": "acknowledged"
+    }
+  ],
+  "edges": [
+    {
+      "from": "polymorphic-rendering",
+      "to": "content-type-system",
+      "edge_type": "depends_on",
+      "reason": "Polymorphic rendering requires the backend to preserve type identity through the query layer.",
+      "strength": 0.95
+    },
+    {
+      "from": "type-preservation-claim",
+      "to": "polymorphic-rendering",
+      "edge_type": "supports",
+      "reason": "The claim directly argues that type preservation is necessary for the rendering pattern.",
+      "strength": 0.88
+    },
+    {
+      "from": "performance-type-fidelity",
+      "to": "content-type-system",
+      "edge_type": "tensions",
+      "reason": "The tension exists within the implementation of the content type system.",
+      "strength": 0.85
+    }
+  ]
+}

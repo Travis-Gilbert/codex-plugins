@@ -1,0 +1,15 @@
+{
+  "name": "django-engine-pro",
+  "version": "1.0.0",
+  "description": "Django backend mastery: model architecture, ORM optimization, API design (DRF + Ninja), django-polymorphic patterns, MCP server construction, scientific Python integration, and Pydantic v2 mapping. Source-code-backed with Django ORM internals, DRF, Ninja, django-polymorphic, django-mcp-server, django-model-utils, django-pandas, django-filter, Pydantic v2, PydanticAI, and dj-notebook.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": [
+    "django", "orm", "models", "queryset", "api", "rest-framework", "drf",
+    "ninja", "polymorphic", "inheritance", "mcp", "mcp-server", "pydantic",
+    "pandas", "numpy", "scipy", "scientific-python", "data-pipeline",
+    "serializer", "migration", "manager", "filter",
+    "django-polymorphic", "model-utils", "bulk-create", "prefetch"
+  ]
+}

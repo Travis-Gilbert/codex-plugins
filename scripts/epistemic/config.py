@@ -13,6 +13,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
 PLUGINS: dict[str, str] = {
     "django-design": "django-design",
+    "django-engine-pro": "django-engine-pro",
     "ml-pro": "ml-pro",
     "ui-design-pro": "ui-design-pro",
     "animation-pro": "animation-pro",
@@ -105,6 +106,14 @@ AGENT_DOMAIN_MAP: dict[str, str] = {
     "physics-simulator": "animation.physics",
     "video-compositor": "animation.video",
     "a11y-motion-auditor": "animation.accessibility",
+    # django-engine-pro
+    "model-architect": "engine.models",
+    "orm-specialist": "engine.orm",
+    "api-architect": "engine.api",
+    "polymorphic-engineer": "engine.polymorphic",
+    "mcp-builder": "engine.mcp",
+    "data-bridge": "engine.bridge",
+    "pydantic-specialist": "engine.pydantic",
     # ux-pro
     "accessibility-auditor": "ux.accessibility",
     "information-architect": "ux.ia",
@@ -142,6 +151,26 @@ HEADING_DOMAIN_MAP: dict[str, str] = {
     "n+1": "performance.n_plus_one",
     "index": "performance.indexes",
     "cross-pillar": "cross_pillar",
+    # django-engine-pro specific
+    "inheritance": "models.inheritance",
+    "polymorphic": "polymorphic",
+    "mcp": "mcp",
+    "pydantic": "pydantic",
+    "dataframe": "bridge.dataframe",
+    "pandas": "bridge.pandas",
+    "numpy": "bridge.numpy",
+    "scipy": "bridge.scipy",
+    "bulk_create": "bridge.bulk",
+    "prefetch": "orm.prefetch",
+    "select_related": "orm.select_related",
+    "window function": "orm.window",
+    "manager": "orm.managers",
+    "soft-delete": "models.soft_delete",
+    "on_delete": "models.on_delete",
+    "jsonfield": "models.jsonfield",
+    "drf": "api.drf",
+    "ninja": "api.ninja",
+    "openapi": "api.openapi",
 }
 
 

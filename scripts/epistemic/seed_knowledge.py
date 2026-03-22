@@ -206,6 +206,14 @@ TAG_KEYWORDS = [
     "animation", "motion", "spring", "scroll", "gesture",
     "pytorch", "gnn", "training", "loss", "gradient", "checkpoint",
     "transformer", "attention", "embedding", "fine-tune", "lora",
+    # django-engine-pro
+    "inheritance", "polymorphic", "non_polymorphic", "contenttype",
+    "drf", "ninja", "pydantic", "mcp", "toolset",
+    "dataframe", "pandas", "numpy", "scipy", "bulk_create", "bulk_update",
+    "iterator", "values_list", "values", "annotate", "aggregate",
+    "subquery", "outerref", "window", "manager", "soft-delete",
+    "on_delete", "jsonfield", "from_attributes", "pydanticai",
+    "async", "afilter", "aget", "acreate",
 ]
 
 
