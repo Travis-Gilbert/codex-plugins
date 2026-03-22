@@ -21,6 +21,7 @@ set -euo pipefail
 DEV_DIR="$(cd "$(dirname "$0")" && pwd)"
 MARKETPLACE="$HOME/.claude/plugins/marketplaces/local-desktop-app-uploads"
 REGISTRY="$HOME/.claude/plugins/installed_plugins.json"
+SETTINGS="$HOME/.claude/settings.json"
 
 # Colors
 GREEN='\033[0;32m'
@@ -105,6 +106,61 @@ data['plugins'][key] = [{
 
 with open(registry_path, 'w') as f:
     json.dump(data, f, indent=2)
+"
+}
+
+# ─────────────────────────────────────────────
+# Enable a plugin in settings.json (step 3)
+# ─────────────────────────────────────────────
+enable_plugin() {
+    local name="$1"
+
+    [[ ! -f "$SETTINGS" ]] && return 0
+
+    python3 -c "
+import json
+
+settings_path = '$SETTINGS'
+data = json.load(open(settings_path))
+
+key = '${name}@local-desktop-app-uploads'
+enabled = data.get('enabledPlugins', {})
+
+if key not in enabled:
+    enabled[key] = True
+    data['enabledPlugins'] = enabled
+    with open(settings_path, 'w') as f:
+        json.dump(data, f, indent=2)
+        f.write('\n')
+    print('enabled')
+else:
+    print('already-enabled')
+"
+}
+
+# ─────────────────────────────────────────────
+# Disable a plugin in settings.json
+# ─────────────────────────────────────────────
+disable_plugin() {
+    local name="$1"
+
+    [[ ! -f "$SETTINGS" ]] && return 0
+
+    python3 -c "
+import json
+
+settings_path = '$SETTINGS'
+data = json.load(open(settings_path))
+
+key = '${name}@local-desktop-app-uploads'
+enabled = data.get('enabledPlugins', {})
+
+if key in enabled:
+    del enabled[key]
+    data['enabledPlugins'] = enabled
+    with open(settings_path, 'w') as f:
+        json.dump(data, f, indent=2)
+        f.write('\n')
 "
 }
 
@@ -204,6 +260,13 @@ sync_plugin() {
         register_plugin "$name" "$version"
         echo -e "  ${GREEN}✓${NC} $name ($version) — installed (new symlink + registered)"
     fi
+
+    # Enable in settings.json (step 3)
+    local enable_result
+    enable_result=$(enable_plugin "$name")
+    if [[ "$enable_result" == "enabled" ]]; then
+        echo -e "  ${GREEN}✓${NC} $name — enabled in settings.json"
+    fi
 }
 
 # ─────────────────────────────────────────────
@@ -277,6 +340,9 @@ uninstall_plugin() {
         unregister_plugin "$name"
         echo -e "  ${GREEN}✓${NC} Removed from installed_plugins.json"
     fi
+
+    disable_plugin "$name"
+    echo -e "  ${GREEN}✓${NC} Removed from settings.json enabledPlugins"
 }
 
 # ─────────────────────────────────────────────

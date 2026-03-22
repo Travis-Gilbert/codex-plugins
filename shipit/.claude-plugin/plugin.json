@@ -1,0 +1,9 @@
+{
+  "name": "shipit",
+  "version": "1.0.0",
+  "description": "Git and deployment automation with verification at every step. Staged file review, conventional commits, pre-commit checks, push with CI/CD detection, and post-deploy health verification.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": ["git", "deploy", "commit", "ci-cd", "vercel", "railway", "automation"]
+}

@@ -4,8 +4,16 @@ Multi-plugin repository. Each subdirectory is a standalone Claude Code plugin.
 
 ## Plugin Install Model
 
-Local plugins register under `~/.claude/plugins/marketplaces/local-desktop-app-uploads/<name>/`.
-The canonical path is in `~/.claude/plugins/installed_plugins.json` — only that path is loaded.
+Three gates must all be satisfied for a plugin to load:
+
+| Step | What | Where | How |
+|------|------|-------|-----|
+| 1. Symlink | Plugin files accessible | `~/.claude/plugins/marketplaces/local-desktop-app-uploads/<name>/` | `./sync-plugins.sh` |
+| 2. Registry | Plugin registered | `~/.claude/plugins/installed_plugins.json` | `./sync-plugins.sh` |
+| 3. Enablement | Plugin enabled | `~/.claude/settings.json` → `enabledPlugins` | Manual: add `"<name>@local-desktop-app-uploads": true` |
+
+`sync-plugins.sh` now handles all three steps automatically. If step 3 fails, manually add `"<name>@local-desktop-app-uploads": true` to `enabledPlugins` in `~/.claude/settings.json`.
+
 `~/.claude/plugins/<name>/` (without marketplace namespace) is NOT read by Claude Code.
 
 ## Active Plugins
@@ -19,6 +27,7 @@ The canonical path is in `~/.claude/plugins/installed_plugins.json` — only tha
 | three-pro | 1.0.0 | `three-pro/` |
 | shipit | 1.0.0 | `shipit/` |
 | ml-pro | 1.0.0 | `ml-pro/` |
+| django-engine-pro | 1.0.0 | `django-engine-pro/` |
 
 ## Sync
 

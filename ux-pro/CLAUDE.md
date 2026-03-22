@@ -86,3 +86,42 @@ Instead, grep the actual implementations:
 8. For form design, follow single-column layout, mark optional fields (not
    required), validate after blur (not on keystroke), and provide clear
    error recovery.
+
+## Epistemic Knowledge System
+
+This plugin maintains structured, evolving knowledge in `knowledge/`. Claims carry confidence scores, evidence tracking, and domain tags. Over time, accepted claims strengthen and rejected claims weaken through Bayesian updates.
+
+### Session Start Protocol
+
+1. Read `knowledge/manifest.json` for current state and last update time.
+2. Read `knowledge/claims.jsonl` and filter for `status: "active"`.
+3. Sort active claims by confidence (descending) and load the top 15-20 into working context.
+4. Check `knowledge/tensions.jsonl` for unresolved tensions in the domains relevant to the current task. If the task touches a tension, surface it to the user BEFORE making a decision.
+5. Check `knowledge/preferences.jsonl` for user-specific defaults that may override generic best practices.
+
+### During Work
+
+6. When your reasoning draws on a specific claim, note its ID internally.
+7. When you make a suggestion informed by a claim, track which claims influenced the decision.
+8. When the user accepts, modifies, or rejects a suggestion, note the outcome.
+
+### Session End Protocol
+
+9. Run `/session-save` to write session observations to `knowledge/session_log/{timestamp}.jsonl`. This captures agents invoked, claims consulted, suggestions made, and their outcomes.
+10. If you discovered something that contradicts an existing claim, flag it as a HIGH-PRIORITY tension signal in the session log.
+11. If you noticed a recurring pattern the knowledge base doesn't cover, note it as a candidate claim in the session log.
+
+### Knowledge Priority Rules
+
+- Active claims with confidence > 0.8 take precedence over static prose when they conflict.
+- Draft claims are informational only — they never override static agent instructions.
+- Preferences defer to explicit user instructions in the current session. Preferences inform defaults, not mandates.
+- When two active claims conflict, check `knowledge/tensions.jsonl` for a resolution. If none exists, surface the conflict to the user and let them decide.
+- Tensions are information, not blockers. Surface them, let the user decide, log the decision.
+
+### Commands
+
+- `/knowledge-status` — View claim counts, confidence distribution, tensions, questions
+- `/knowledge-review` — Activate draft claims, resolve tensions, triage questions
+- `/knowledge-update` — Run between-session learning pipeline (all 8 stages)
+- `/session-save` — Flush session observations to the session log
