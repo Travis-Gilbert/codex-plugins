@@ -28,11 +28,17 @@ Three gates must all be satisfied for a plugin to load:
 | shipit | 1.0.0 | `shipit/` |
 | ml-pro | 1.0.0 | `ml-pro/` |
 | django-engine-pro | 1.0.0 | `django-engine-pro/` |
+| next-pro | 1.0.0 | `next-pro/` |
 
 ## Sync
 
 Run `./sync-plugins.sh` to symlink all plugins to the Claude Code install path.
 Run `./sync-plugins.sh --status` to check which plugins are linked.
+
+## Epistemic Seeder Notes
+
+- `seed_knowledge.py` over-extracts structural lines as claims. Target spec Part III sample claims, not raw agent markdown lines.
+- `GIT_LFS_SKIP_SMUDGE=1` required when cloning DRF into refs/ (large test fixtures).
 
 ## Remote
 

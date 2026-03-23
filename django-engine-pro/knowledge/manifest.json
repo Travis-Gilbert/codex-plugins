@@ -28,5 +28,15 @@
       "action": "knowledge_review",
       "details": "Activated 29 claims (4 edited), retired 82 structural/meta/duplicate claims"
     }
-  ]
+  ],
+  "processed_sessions": [
+    "20260321T120000.jsonl"
+  ],
+  "total_claims": 113,
+  "active_claims": 29,
+  "draft_claims": 2,
+  "retired_claims": 82,
+  "avg_confidence": 0.75,
+  "last_pipeline_run": "2026-03-22T21:41:18.492666+00:00",
+  "total_sessions_processed": 1
 }

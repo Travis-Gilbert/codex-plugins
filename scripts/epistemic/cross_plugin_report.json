@@ -1,0 +1,195 @@
+{
+  "plugins_linked": 5,
+  "total_links": 31,
+  "claims_updated": 49,
+  "links_by_pair": {
+    "django-design->ui-design-pro": 10,
+    "django-design->ux-pro": 1,
+    "ui-design-pro->animation-pro": 19,
+    "animation-pro->ux-pro": 1
+  },
+  "top_connections": [
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "8550baefb05b",
+      "source_text": "AnimatePresence exit animations block unmounting — keep exit durations short (<2",
+      "target_plugin": "animation-pro",
+      "target_claim": "abec1587bdcf",
+      "target_text": "AnimatePresence exit animations block unmounting: keep exit < 200ms",
+      "similarity": 0.9641
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "b936ecf921de",
+      "source_text": "Use will-change: transform sparingly — only on elements that animate continuousl",
+      "target_plugin": "animation-pro",
+      "target_claim": "7bb6a28329e9",
+      "target_text": "Use will-change: transform sparingly, only on continuously animated elements",
+      "similarity": 0.9447
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "353180723edc",
+      "source_text": "Always respect prefers-reduced-motion",
+      "target_plugin": "animation-pro",
+      "target_claim": "e1c349cda931",
+      "target_text": "prefers-reduced-motion is respected",
+      "similarity": 0.9119
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "0dd7d9c8a5e8",
+      "source_text": "Does this motion provide feedback? (Action confirmed, state changed)",
+      "target_plugin": "animation-pro",
+      "target_claim": "d39ba470ed15",
+      "target_text": "Feedback? Does this motion confirm an action was received?",
+      "similarity": 0.901
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "4844c5c53294",
+      "source_text": "Layout animations are expensive — use layout prop judiciously on large lists.",
+      "target_plugin": "animation-pro",
+      "target_claim": "d444eb1099d2",
+      "target_text": "Layout animations (Motion layout prop) are expensive on large lists",
+      "similarity": 0.8756
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "1889d4837046",
+      "source_text": "CSS transitions for simple state changes",
+      "target_plugin": "animation-pro",
+      "target_claim": "c0e835fb9205",
+      "target_text": "Simple state change (color, opacity, border) -> CSS transition",
+      "similarity": 0.8694
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "9166dd83e313",
+      "source_text": "Does this motion communicate relationship? (Elements connected, hierarchy reveal",
+      "target_plugin": "animation-pro",
+      "target_claim": "e7839ff96ada",
+      "target_text": "Relationship? Does this motion reveal connections between elements?",
+      "similarity": 0.8302
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "a2fc8f9824b4",
+      "source_text": "Confirm prefers-reduced-motion is handled",
+      "target_plugin": "animation-pro",
+      "target_claim": "aad2106abcb5",
+      "target_text": "Verify prefers-reduced-motion disables or reduces the effect",
+      "similarity": 0.8273
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "a2fc8f9824b4",
+      "source_text": "Confirm prefers-reduced-motion is handled",
+      "target_plugin": "animation-pro",
+      "target_claim": "e1c349cda931",
+      "target_text": "prefers-reduced-motion is respected",
+      "similarity": 0.8182
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "bd6e22ad59e0",
+      "source_text": "Typography scale: Text uses the defined type scale (text-display-lg, text-body-m",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "99bd60bed21e",
+      "target_text": "Typography scale usage",
+      "similarity": 0.7622
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "8550baefb05b",
+      "source_text": "AnimatePresence exit animations block unmounting — keep exit durations short (<2",
+      "target_plugin": "animation-pro",
+      "target_claim": "d81362253d1d",
+      "target_text": "Exit animation durations are < 200ms",
+      "similarity": 0.7479
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "4520882b40dc",
+      "source_text": "D3 charts. (static/js/charts/)",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "381e76fbb9b8",
+      "target_text": "For D3 visualization: defer to JS-Pro data-analyst and its D3 examples.",
+      "similarity": 0.7477
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "9c77b15edb1a",
+      "source_text": "ARIA attributes: Interactive widgets (tabs, dropdowns, modals) have appropriate ",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "0bb7aa3157e6",
+      "target_text": "ARIA attributes",
+      "similarity": 0.7329
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "dbb33a48bfa7",
+      "source_text": "Never animate width, height, or layout-triggering properties in CSS. Use transfo",
+      "target_plugin": "animation-pro",
+      "target_claim": "693c3bcf6bfc",
+      "target_text": "Never animate layout-triggering properties (width, height, top, left)",
+      "similarity": 0.7299
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "79a8ee3b8436",
+      "source_text": "Tailwind CSS. (utility usage, design tokens, responsive patterns)",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "6fcd77e0b35d",
+      "target_text": "Tailwind strategy and custom utilities: references/tailwind-patterns.md",
+      "similarity": 0.7294
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "02e16ecf4045",
+      "source_text": "Button vs link: <button> for actions, <a> for navigation. Flag <a href=\"#\" oncli",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "23f08d88ce14",
+      "target_text": "<button> for actions, <a> for navigation",
+      "similarity": 0.7292
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "79a8ee3b8436",
+      "source_text": "Tailwind CSS. (utility usage, design tokens, responsive patterns)",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "02ef5dda2a4b",
+      "target_text": "Styled wrapper. (Tailwind) — visual implementation",
+      "similarity": 0.7146
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "353180723edc",
+      "source_text": "Always respect prefers-reduced-motion",
+      "target_plugin": "animation-pro",
+      "target_claim": "aad2106abcb5",
+      "target_text": "Verify prefers-reduced-motion disables or reduces the effect",
+      "similarity": 0.7146
+    },
+    {
+      "source_plugin": "django-design",
+      "source_claim": "0ac7e4c0a3ac",
+      "source_text": "Typography: Text uses the defined type scale (text-display-lg, text-body-md) not",
+      "target_plugin": "ui-design-pro",
+      "target_claim": "99bd60bed21e",
+      "target_text": "Typography scale usage",
+      "similarity": 0.7129
+    },
+    {
+      "source_plugin": "ui-design-pro",
+      "source_claim": "7da7f0323889",
+      "source_text": "Drag gesture has keyboard equivalent",
+      "target_plugin": "animation-pro",
+      "target_claim": "e300e3a75816",
+      "target_text": "Gesture-driven (drag, swipe) -> Motion gesture system",
+      "similarity": 0.7001
+    }
+  ],
+  "threshold": 0.65,
+  "top_k": 3
+}

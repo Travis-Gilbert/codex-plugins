@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "plugin": "django-design",
+  "last_updated": "2026-03-21",
+  "stats": {
+    "total_claims": 348,
+    "active_claims": 312,
+    "draft_claims": 0,
+    "tensions": 0,
+    "methods": 0,
+    "questions": 2,
+    "preferences": 0,
+    "avg_confidence": 0.6646
+  },
+  "model_versions": {
+    "schema": "1.0.0",
+    "seeder": "1.0.0"
+  },
+  "update_log": [
+    {
+      "date": "2026-03-21",
+      "action": "seed",
+      "details": "Extracted 348 new claims (348 total)"
+    },
+    {
+      "date": "2026-03-21",
+      "action": "pipeline_run",
+      "details": "Evidence: 10, Updated: 10, Decayed: 0"
+    },
+    {
+      "date": "2026-03-21",
+      "action": "pipeline_run",
+      "details": "Evidence: 10, Updated: 10, Decayed: 0, Tensions: 0, Questions: 2"
+    },
+    {
+      "date": "2026-03-21",
+      "action": "pipeline_run",
+      "details": "Evidence: 10, Updated: 10, Decayed: 0, Tensions: 0, Questions: 0"
+    },
+    {
+      "date": "2026-03-21",
+      "action": "knowledge_review",
+      "details": "Activated 312 claims, Retired 36, Draft 0"
+    }
+  ],
+  "processed_sessions": [
+    "20260321T195621.jsonl"
+  ],
+  "total_claims": 348,
+  "active_claims": 312,
+  "draft_claims": 0,
+  "retired_claims": 36,
+  "avg_confidence": 0.6638,
+  "last_pipeline_run": "2026-03-22T21:41:18.482408+00:00",
+  "total_sessions_processed": 1
+}

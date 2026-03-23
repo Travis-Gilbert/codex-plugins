@@ -1,0 +1,9 @@
+{
+  "name": "app-pro",
+  "version": "1.0.0",
+  "description": "Mobile app development specialist: PWA retrofitting, React Native architecture, offline-first sync, mobile API design, touch optimization, and mobile visualization adaptation.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": ["mobile", "pwa", "react-native", "expo", "offline", "capacitor", "service-worker", "touch", "visualization", "api"]
+}

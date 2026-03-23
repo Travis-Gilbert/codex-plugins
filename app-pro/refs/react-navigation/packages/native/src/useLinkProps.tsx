@@ -1,0 +1,152 @@
+import {
+  getPathFromState,
+  type NavigationAction,
+  NavigationContainerRefContext,
+  NavigationHelpersContext,
+  type RootParamList,
+} from '@react-navigation/core';
+import * as React from 'react';
+import { type GestureResponderEvent, Platform } from 'react-native';
+
+import { LinkingContext } from './LinkingContext';
+
+export type LinkProps<
+  ParamList extends {} = RootParamList,
+  RouteName extends keyof ParamList = keyof ParamList,
+> =
+  | ({
+      href?: string;
+      action?: NavigationAction;
+    } & (RouteName extends unknown
+      ? undefined extends ParamList[RouteName]
+        ? { screen: RouteName; params?: ParamList[RouteName] }
+        : { screen: RouteName; params: ParamList[RouteName] }
+      : never))
+  | {
+      href?: string;
+      action: NavigationAction;
+      screen?: undefined;
+      params?: undefined;
+    };
+
+/**
+ * Hook to get props for an anchor tag so it can work with in page navigation.
+ *
+ * @param props.screen Name of the screen to navigate to (e.g. `'Feeds'`).
+ * @param props.params Params to pass to the screen to navigate to (e.g. `{ sort: 'hot' }`).
+ * @param props.href Optional absolute path to use for the href (e.g. `/feeds/hot`).
+ * @param props.action Optional action to use for in-page navigation. By default, the path is parsed to an action based on linking config.
+ */
+export function useLinkProps<
+  const ParamList extends {} = RootParamList,
+  const RouteName extends keyof ParamList = keyof ParamList,
+>({ screen, params, href, action }: LinkProps<ParamList, RouteName>) {
+  const root = React.use(NavigationContainerRefContext);
+  const navigation = React.use(NavigationHelpersContext);
+  const { options } = React.use(LinkingContext);
+
+  const onPress = (
+    e?: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent
+  ) => {
+    let shouldHandle = false;
+
+    if (Platform.OS !== 'web' || !e) {
+      e?.preventDefault?.();
+      shouldHandle = true;
+    } else {
+      // ignore clicks with modifier keys
+      const hasModifierKey =
+        ('metaKey' in e && e.metaKey) ||
+        ('altKey' in e && e.altKey) ||
+        ('ctrlKey' in e && e.ctrlKey) ||
+        ('shiftKey' in e && e.shiftKey);
+
+      // only handle left clicks
+      const isLeftClick =
+        'button' in e ? e.button == null || e.button === 0 : true;
+
+      // let browser handle "target=_blank" etc.
+      const isSelfTarget =
+        e.currentTarget && 'target' in e.currentTarget
+          ? [undefined, null, '', 'self'].includes(e.currentTarget.target)
+          : true;
+
+      if (!hasModifierKey && isLeftClick && isSelfTarget) {
+        e.preventDefault?.();
+        shouldHandle = true;
+      }
+    }
+
+    if (shouldHandle) {
+      if (action) {
+        if (navigation) {
+          navigation.dispatch(action);
+        } else if (root) {
+          root.dispatch(action);
+        } else {
+          throw new Error(
+            "Couldn't find a navigation object. Is your component inside NavigationContainer?"
+          );
+        }
+      } else {
+        // @ts-expect-error This is already type-checked by the prop types
+        navigation?.navigate(screen, params);
+      }
+    }
+  };
+
+  const getPathFromStateHelper = options?.getPathFromState ?? getPathFromState;
+
+  if (Platform.OS === 'web') {
+    if (screen == null && action != null && options?.config != null) {
+      switch (action.type) {
+        case 'NAVIGATE':
+        case 'PUSH':
+        case 'REPLACE':
+        case 'POP_TO':
+        case 'JUMP_TO': {
+          if (
+            action.payload != null &&
+            'name' in action.payload &&
+            typeof action.payload.name === 'string' &&
+            action.payload.name in options.config.screens
+          ) {
+            screen = action.payload.name;
+
+            if (
+              'params' in action.payload &&
+              typeof action.payload.params === 'object' &&
+              action.payload.params != null
+            ) {
+              // @ts-expect-error this is fine 🔥
+              params = action.payload.params;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return {
+    href:
+      href ??
+      (Platform.OS === 'web' && typeof screen === 'string'
+        ? getPathFromStateHelper(
+            {
+              routes: [
+                {
+                  name: screen,
+                  params:
+                    typeof params === 'object' && params != null
+                      ? params
+                      : undefined,
+                },
+              ],
+            },
+            options?.config
+          )
+        : undefined),
+    role: 'link' as const,
+    onPress,
+  };
+}

@@ -1,0 +1,14 @@
+{
+  "plugin": "app-pro",
+  "version": "1.0",
+  "last_updated": null,
+  "stats": {
+    "total_claims": 0,
+    "active_claims": 0,
+    "draft_claims": 0,
+    "avg_confidence": 0,
+    "tensions": 0,
+    "questions": 0
+  },
+  "update_log": []
+}

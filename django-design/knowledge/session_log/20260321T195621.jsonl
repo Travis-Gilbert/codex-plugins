@@ -1,0 +1,15 @@
+{"event": "session_start", "project": "test-project", "files_open": ["models.py", "views.py"], "timestamp": "2026-03-21T19:56:21.169518"}
+{"event": "agent_invoked", "agent": "django-architect", "trigger": "writing models", "timestamp": "2026-03-21T19:56:21.169522"}
+{"event": "claim_consulted", "claim_id": "be3e103222da", "relevance_score": 0.95, "timestamp": "2026-03-21T19:56:21.169523"}
+{"event": "claim_consulted", "claim_id": "8668f79fb4ad", "relevance_score": 0.88, "timestamp": "2026-03-21T19:56:21.169524"}
+{"event": "claim_consulted", "claim_id": "80d2ba5a761d", "relevance_score": 0.72, "timestamp": "2026-03-21T19:56:21.169525"}
+{"event": "claim_consulted", "claim_id": "14fc7fab69d0", "relevance_score": 0.65, "timestamp": "2026-03-21T19:56:21.169526"}
+{"event": "claim_consulted", "claim_id": "d735035b2eed", "relevance_score": 0.55, "timestamp": "2026-03-21T19:56:21.169527"}
+{"event": "suggestion", "suggestion_id": "sug-001", "suggestion_type": "code_pattern", "file": "models.py", "lines": [10, 15], "claim_refs": ["be3e103222da"], "timestamp": "2026-03-21T19:56:21.169528"}
+{"event": "suggestion", "suggestion_id": "sug-002", "suggestion_type": "code_pattern", "file": "models.py", "lines": [20, 25], "claim_refs": ["8668f79fb4ad"], "timestamp": "2026-03-21T19:56:21.169529"}
+{"event": "suggestion", "suggestion_id": "sug-003", "suggestion_type": "review_finding", "file": "views.py", "lines": [30, 40], "claim_refs": ["80d2ba5a761d", "14fc7fab69d0"], "timestamp": "2026-03-21T19:56:21.169530"}
+{"event": "suggestion_outcome", "suggestion_id": "sug-001", "outcome": "accepted", "timestamp": "2026-03-21T19:56:21.169531"}
+{"event": "suggestion_outcome", "suggestion_id": "sug-002", "outcome": "modified", "modifications": "changed field name", "timestamp": "2026-03-21T19:56:21.169532"}
+{"event": "suggestion_outcome", "suggestion_id": "sug-003", "outcome": "rejected", "timestamp": "2026-03-21T19:56:21.169533"}
+{"event": "tension_surfaced", "description": "Fat models principle conflicts with service layer pattern for complex workflows", "related_claims": ["be3e103222da", "d735035b2eed"], "priority": "high", "timestamp": "2026-03-21T19:56:21.169534"}
+{"event": "session_end", "duration_minutes": 35, "files_changed": ["models.py"], "timestamp": "2026-03-21T19:56:21.169535"}

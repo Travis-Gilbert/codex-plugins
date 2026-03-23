@@ -1,0 +1,9 @@
+{
+  "name": "next-pro",
+  "version": "1.0.0",
+  "description": "Next.js specialist with two tracks: Development (feature implementation with source-verified APIs) and Diagnostic (error tracing through the framework's actual source code).",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": ["nextjs", "development", "debugging", "diagnostics", "hydration", "rsc", "caching", "server-actions", "routing", "metadata"]
+}

@@ -1,0 +1,1 @@
+/Users/travisgilbert/Tech Dev Local/codex-plugins/ui-design-pro/commands/animate.md

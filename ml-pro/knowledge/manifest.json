@@ -27,5 +27,13 @@
       "action": "knowledge_review",
       "details": "Activated 70 claims, Retired 11, Draft 0"
     }
-  ]
+  ],
+  "processed_sessions": [],
+  "total_claims": 81,
+  "active_claims": 70,
+  "draft_claims": 0,
+  "retired_claims": 11,
+  "avg_confidence": 0.667,
+  "last_pipeline_run": "2026-03-22T21:41:18.495991+00:00",
+  "total_sessions_processed": 0
 }
