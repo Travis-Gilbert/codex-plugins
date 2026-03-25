@@ -1,0 +1,10 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "plugin-server/Dockerfile"
+
+[deploy]
+startCommand = "cd plugin-server && python manage.py migrate --noinput && gunicorn plugin_server.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120"
+healthcheckPath = "/api/plugins/"
+healthcheckTimeout = 30
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
