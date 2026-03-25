@@ -20,6 +20,7 @@ PLUGINS: dict[str, str] = {
     "ux-pro": "ux-pro",
     "next-pro": "next-pro",
     "app-pro": "app-pro",
+    "app-forge": "app-forge",
 }
 
 KNOWLEDGE_DIR = "knowledge"
@@ -145,6 +146,13 @@ AGENT_DOMAIN_MAP: dict[str, str] = {
     "offline-engineer": "app.offline",
     "mobile-api": "app.api",
     "viz-adapter": "app.visualization",
+    # app-forge
+    "app-shell": "forge.shell",
+    "command-center": "forge.palette",
+    "transition-engineer": "forge.transitions",
+    "sync-engineer": "forge.sync",
+    "tauri-builder": "forge.tauri",
+    "swift-planner": "forge.swift",
 }
 
 # Markdown heading keywords -> subdomain suffix (appended to agent domain)
@@ -253,6 +261,51 @@ HEADING_DOMAIN_MAP: dict[str, str] = {
     "force graph": "visualization.force",
     "skia": "visualization.skia",
     "victory": "visualization.victory",
+    # app-forge specific
+    "parallel route": "shell.parallel_routes",
+    "route group": "shell.route_groups",
+    "intercepting route": "shell.intercepting_routes",
+    "panel": "shell.panels",
+    "sidebar": "shell.sidebar",
+    "inspector": "shell.inspector",
+    "command palette": "palette.cmdk",
+    "cmdk": "palette.cmdk",
+    "fuzzy search": "palette.search",
+    "action registry": "palette.actions",
+    "keyboard shortcut": "shortcuts.tinykeys",
+    "tinykeys": "shortcuts.tinykeys",
+    "focus guard": "shortcuts.focus",
+    "view transition": "transitions.api",
+    "startViewTransition": "transitions.api",
+    "framer motion": "transitions.framer",
+    "AnimatePresence": "transitions.framer",
+    "directional transition": "transitions.direction",
+    "service worker": "sync.service_worker",
+    "serwist": "sync.serwist",
+    "workbox": "sync.workbox",
+    "background sync": "sync.background",
+    "web worker": "sync.web_worker",
+    "sse": "sync.sse",
+    "server-sent event": "sync.sse",
+    "caching strategy": "sync.caching",
+    "pwa": "sync.pwa",
+    "install prompt": "sync.pwa_install",
+    "offline fallback": "sync.offline",
+    "tauri": "tauri",
+    "webview": "tauri.webview",
+    "native menu": "tauri.menu",
+    "system tray": "tauri.tray",
+    "global shortcut": "tauri.shortcuts",
+    "deep link": "tauri.deep_link",
+    "auto-update": "tauri.updater",
+    "static export": "tauri.static_export",
+    "monorepo": "tauri.monorepo",
+    "turborepo": "tauri.monorepo",
+    "pnpm workspace": "tauri.monorepo",
+    "dual-target": "tauri.dual_target",
+    "swift": "swift.handoff",
+    "appkit": "swift.appkit",
+    "macos native": "swift.native",
 }
 
 

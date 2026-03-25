@@ -1,0 +1,9 @@
+{
+  "name": "app-forge",
+  "version": "1.0.0",
+  "description": "Makes Claude Code extraordinarily good at transforming websites into applications: converting page-based Next.js sites into app-like experiences with persistent layouts, command palettes, and background sync; wrapping them in Tauri desktop shells with native OS integration; and producing architecture handoffs for native Swift/AppKit macOS apps.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": ["app", "tauri", "pwa", "desktop", "command-palette", "keyboard-shortcuts", "view-transitions", "service-worker", "next-app-router", "swift"]
+}

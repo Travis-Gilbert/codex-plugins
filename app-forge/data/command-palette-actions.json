@@ -1,0 +1,75 @@
+{
+  "description": "Sample action registry for command palette testing",
+  "actions": [
+    {
+      "id": "nav:objects",
+      "label": "Go to Objects",
+      "group": "navigation",
+      "keywords": ["items", "content", "list"],
+      "shortcut": null
+    },
+    {
+      "id": "nav:graph",
+      "label": "Go to Graph",
+      "group": "navigation",
+      "keywords": ["knowledge", "network", "visualization"],
+      "shortcut": null
+    },
+    {
+      "id": "nav:settings",
+      "label": "Go to Settings",
+      "group": "navigation",
+      "keywords": ["preferences", "config"],
+      "shortcut": "$mod+,"
+    },
+    {
+      "id": "action:new-object",
+      "label": "New Object",
+      "group": "action",
+      "keywords": ["create", "add"],
+      "shortcut": "$mod+n"
+    },
+    {
+      "id": "action:quick-capture",
+      "label": "Quick Capture",
+      "group": "action",
+      "keywords": ["note", "capture", "jot"],
+      "shortcut": "$mod+Shift+Space"
+    },
+    {
+      "id": "action:run-engine",
+      "label": "Run Engine Pass",
+      "group": "action",
+      "keywords": ["process", "connections", "analyze"],
+      "shortcut": null
+    },
+    {
+      "id": "action:export",
+      "label": "Export Graph",
+      "group": "action",
+      "keywords": ["download", "save", "json"],
+      "shortcut": "$mod+e"
+    },
+    {
+      "id": "settings:toggle-theme",
+      "label": "Toggle Dark Mode",
+      "group": "settings",
+      "keywords": ["dark", "light", "theme", "appearance"],
+      "shortcut": "$mod+Shift+d"
+    },
+    {
+      "id": "settings:toggle-sidebar",
+      "label": "Toggle Sidebar",
+      "group": "settings",
+      "keywords": ["hide", "show", "panel"],
+      "shortcut": "$mod+/"
+    },
+    {
+      "id": "settings:toggle-inspector",
+      "label": "Toggle Inspector",
+      "group": "settings",
+      "keywords": ["detail", "properties", "panel"],
+      "shortcut": "$mod+\\"
+    }
+  ]
+}

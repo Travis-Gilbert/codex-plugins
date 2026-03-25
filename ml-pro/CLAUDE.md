@@ -192,41 +192,27 @@ Before considering any ML code complete, verify:
 | **D3-Pro** | For visualization of training metrics, embedding projections, attention patterns, or graph structures. Route viz tasks there. |
 | **Three-Pro** | For 3D visualization of graph embeddings, high-dimensional projections, or spatial ML data. |
 
-## Epistemic Knowledge System
+## Knowledge Layer
 
-This plugin maintains structured, evolving knowledge in `knowledge/`. Claims carry confidence scores, evidence tracking, and domain tags. Over time, accepted claims strengthen and rejected claims weaken through Bayesian updates.
+This plugin has a self-improving knowledge layer in `knowledge/`.
 
-### Session Start Protocol
+### At Session Start
+1. Read `knowledge/manifest.json` for stats and last update time
+2. Read `knowledge/claims.jsonl` for active claims relevant to this task
+   (filter by tags matching the agents you are loading)
+3. When a claim's confidence > 0.8 and it conflicts with static
+   instructions, follow the claim. It represents learned behavior.
+4. When a claim's confidence < 0.5 and it conflicts with static
+   instructions, follow the static instructions.
 
-1. Read `knowledge/manifest.json` for current state and last update time.
-2. Read `knowledge/claims.jsonl` and filter for `status: "active"`.
-3. Sort active claims by confidence (descending) and load the top 15-20 into working context.
-4. Check `knowledge/tensions.jsonl` for unresolved tensions in the domains relevant to the current task. If the task touches a tension, surface it to the user BEFORE making a decision.
-5. Check `knowledge/preferences.jsonl` for user-specific defaults that may override generic best practices.
+### During the Session
+- When you consult a claim, note which claim and why
+- When you make a suggestion based on a claim, note the link
+- When the user corrects you, note what they said and which claim
+  was involved (this is a tension signal)
+- When you notice a pattern not in the knowledge base, note it
+  as a candidate claim
 
-### During Work
-
-6. When your reasoning draws on a specific claim, note its ID internally.
-7. When you make a suggestion informed by a claim, track which claims influenced the decision.
-8. When the user accepts, modifies, or rejects a suggestion, note the outcome.
-
-### Session End Protocol
-
-9. Run `/session-save` to write session observations to `knowledge/session_log/{timestamp}.jsonl`. This captures agents invoked, claims consulted, suggestions made, and their outcomes.
-10. If you discovered something that contradicts an existing claim, flag it as a HIGH-PRIORITY tension signal in the session log.
-11. If you noticed a recurring pattern the knowledge base doesn't cover, note it as a candidate claim in the session log.
-
-### Knowledge Priority Rules
-
-- Active claims with confidence > 0.8 take precedence over static prose when they conflict.
-- Draft claims are informational only — they never override static agent instructions.
-- Preferences defer to explicit user instructions in the current session. Preferences inform defaults, not mandates.
-- When two active claims conflict, check `knowledge/tensions.jsonl` for a resolution. If none exists, surface the conflict to the user and let them decide.
-- Tensions are information, not blockers. Surface them, let the user decide, log the decision.
-
-### Commands
-
-- `/knowledge-status` — View claim counts, confidence distribution, tensions, questions
-- `/knowledge-review` — Activate draft claims, resolve tensions, triage questions
-- `/knowledge-update` — Run between-session learning pipeline (all 8 stages)
-- `/session-save` — Flush session observations to the session log
+### At Session End
+Run `/learn` to save and update knowledge. This is the ONLY
+knowledge command you need.

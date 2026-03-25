@@ -1,0 +1,5 @@
+# Cloned library source code (large, not tracked)
+refs/*/
+
+# Plugin local settings
+.claude/*.local.md

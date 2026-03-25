@@ -78,64 +78,30 @@ relevant agent .md file(s) before starting work. See AGENTS.md for routing.
    API (afilter, aget, acreate, etc.) when the tool is defined as async.
    Mixing sync ORM calls inside async functions causes thread-safety issues.
 
-## Epistemic Knowledge System
+## Knowledge Layer
 
-This plugin carries structured, evolving knowledge in `knowledge/`.
+This plugin has a self-improving knowledge layer in `knowledge/`.
 
-### Session Start Protocol
+### At Session Start
+1. Read `knowledge/manifest.json` for stats and last update time
+2. Read `knowledge/claims.jsonl` for active claims relevant to this task
+   (filter by tags matching the agents you are loading)
+3. When a claim's confidence > 0.8 and it conflicts with static
+   instructions, follow the claim. It represents learned behavior.
+4. When a claim's confidence < 0.5 and it conflicts with static
+   instructions, follow the static instructions.
 
-1. Read `knowledge/manifest.json` for current state.
-2. Read `knowledge/claims.jsonl` and load all active claims.
-3. Based on the current project and open files, score claims for relevance.
-   Fallback chain:
-   a. MLP scorer (if scorer_weights.json exists and has 50+ training points)
-   b. Cosine similarity: embed the task description with SBERT, compare
-      against claims in embeddings.npz, rank by similarity
-   c. Tag matching: match claim tags against agent_tags for the active agents
-   d. Load all claims (last resort, only if knowledge/ has <20 claims)
-4. Load the top 15-20 most relevant claims into active context.
-5. Check `knowledge/tensions.jsonl` for unresolved tensions in the
-   active domain. If the current task touches a tension, surface it
-   to the user BEFORE making a decision.
-6. Check `knowledge/preferences.jsonl` for defaults that override
-   generic best practices.
+### During the Session
+- When you consult a claim, note which claim and why
+- When you make a suggestion based on a claim, note the link
+- When the user corrects you, note what they said and which claim
+  was involved (this is a tension signal)
+- When you notice a pattern not in the knowledge base, note it
+  as a candidate claim
 
-### During Work
-
-7. When your reasoning draws on a specific claim, note its ID
-   in the session log.
-8. When you make a suggestion, log which claims informed it.
-9. When the user accepts, modifies, or rejects a suggestion,
-   log the outcome.
-10. When you encounter a situation where two claims give conflicting
-    advice, log it as a HIGH-PRIORITY tension signal.
-
-### Session End Protocol
-
-11. Write the session log to `knowledge/session_log/{timestamp}.jsonl`.
-12. If you discovered something that contradicts an existing claim,
-    note it in the session log with event type `tension_signal`.
-13. If you noticed a pattern the knowledge base doesn't cover,
-    note it as event type `candidate_claim`.
-
-### Knowledge Priority Rules
-
-- When a claim conflicts with static prose in this CLAUDE.md:
-  confidence > 0.8: claim wins.
-  confidence < 0.5: prose wins.
-  Between 0.5 and 0.8: surface the conflict to the user.
-- Preferences defer to explicit user instructions in the current session.
-- Tensions are information, not blockers. Surface them, let the user
-  decide, log the decision.
-
-### Commands
-
-| Command | What It Does |
-|---|---|
-| `/knowledge-status` | Claim count, avg confidence, unresolved tensions, open questions |
-| `/knowledge-update` | Run the between-session learning pipeline (stages 1-8) |
-| `/knowledge-review` | Surface draft claims, unresolved tensions, and open questions for human review |
-| `/session-save` | Flush the current session log to disk |
+### At Session End
+Run `/learn` to save and update knowledge. This is the ONLY
+knowledge command you need.
 
 ## Cross-Reference with Other Plugins
 

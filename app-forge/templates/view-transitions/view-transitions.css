@@ -1,0 +1,97 @@
+/* styles/view-transitions.css */
+/* Directional transition keyframes for the View Transitions API. */
+
+/* ── Keyframes ──────────────────────────────────────── */
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-out-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+@keyframes slide-in-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes slide-out-down {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ── Push: deeper into hierarchy ────────────────────── */
+
+[data-transition-direction="push"]::view-transition-old(main-content) {
+  animation: slide-out-left 250ms ease-in-out;
+}
+[data-transition-direction="push"]::view-transition-new(main-content) {
+  animation: slide-in-right 250ms ease-in-out;
+}
+
+/* ── Pop: back up hierarchy ─────────────────────────── */
+
+[data-transition-direction="pop"]::view-transition-old(main-content) {
+  animation: slide-out-right 250ms ease-in-out;
+}
+[data-transition-direction="pop"]::view-transition-new(main-content) {
+  animation: slide-in-left 250ms ease-in-out;
+}
+
+/* ── Fade: sibling switch (tabs) ────────────────────── */
+
+[data-transition-direction="fade"]::view-transition-old(main-content) {
+  animation: fade-out 200ms ease-in-out;
+}
+[data-transition-direction="fade"]::view-transition-new(main-content) {
+  animation: fade-in 200ms ease-in-out;
+}
+
+/* ── Cover: open overlay ────────────────────────────── */
+
+[data-transition-direction="cover"]::view-transition-old(main-content) {
+  animation: none;
+}
+[data-transition-direction="cover"]::view-transition-new(main-content) {
+  animation: slide-in-up 300ms ease-out;
+}
+
+/* ── Reveal: close overlay ──────────────────────────── */
+
+[data-transition-direction="reveal"]::view-transition-old(main-content) {
+  animation: slide-out-down 300ms ease-in;
+}
+[data-transition-direction="reveal"]::view-transition-new(main-content) {
+  animation: none;
+}
+
+/* ── Accessibility ──────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ── Assign transition names ────────────────────────── */
+
+[data-panel="main"] {
+  view-transition-name: main-content;
+}

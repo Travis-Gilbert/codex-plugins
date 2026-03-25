@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "plugin": "app-forge",
+  "last_updated": "2026-03-25",
+  "stats": {
+    "total_claims": 119,
+    "active_claims": 0,
+    "draft_claims": 119,
+    "tensions": 0,
+    "methods": 0,
+    "questions": 0,
+    "preferences": 0,
+    "avg_confidence": 0.0
+  },
+  "model_versions": {
+    "schema_ver": "1.0.0",
+    "seeder": "1.0.0"
+  },
+  "update_log": [
+    {
+      "date": "2026-03-25",
+      "action": "seed",
+      "details": "Extracted 119 new claims (119 total)"
+    }
+  ]
+}

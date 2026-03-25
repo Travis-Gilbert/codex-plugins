@@ -1,0 +1,97 @@
+{
+  "description": "App shell state transitions for testing panel-based navigation",
+  "states": [
+    {
+      "id": "initial",
+      "url": "/",
+      "sidebar": "default",
+      "main": "welcome",
+      "inspector": "empty",
+      "modal": null
+    },
+    {
+      "id": "objects-list",
+      "url": "/objects",
+      "sidebar": "objects-selected",
+      "main": "objects-list",
+      "inspector": "empty",
+      "modal": null
+    },
+    {
+      "id": "object-selected",
+      "url": "/objects/abc123",
+      "sidebar": "objects-selected",
+      "main": "objects-list",
+      "inspector": "object-detail",
+      "modal": null
+    },
+    {
+      "id": "object-modal",
+      "url": "/objects/abc123",
+      "sidebar": "objects-selected",
+      "main": "objects-list",
+      "inspector": "empty",
+      "modal": "object-preview"
+    },
+    {
+      "id": "graph-view",
+      "url": "/graph",
+      "sidebar": "graph-selected",
+      "main": "graph-canvas",
+      "inspector": "empty",
+      "modal": null
+    },
+    {
+      "id": "settings",
+      "url": "/settings",
+      "sidebar": "settings-selected",
+      "main": "settings-form",
+      "inspector": "empty",
+      "modal": null
+    }
+  ],
+  "transitions": [
+    {
+      "from": "initial",
+      "to": "objects-list",
+      "trigger": "sidebar-click",
+      "direction": "push",
+      "panels_changed": ["sidebar", "main"]
+    },
+    {
+      "from": "objects-list",
+      "to": "object-selected",
+      "trigger": "list-item-click",
+      "direction": "push",
+      "panels_changed": ["inspector"]
+    },
+    {
+      "from": "objects-list",
+      "to": "object-modal",
+      "trigger": "list-item-preview",
+      "direction": "cover",
+      "panels_changed": ["modal"]
+    },
+    {
+      "from": "object-modal",
+      "to": "objects-list",
+      "trigger": "modal-close",
+      "direction": "reveal",
+      "panels_changed": ["modal"]
+    },
+    {
+      "from": "objects-list",
+      "to": "graph-view",
+      "trigger": "sidebar-click",
+      "direction": "fade",
+      "panels_changed": ["sidebar", "main"]
+    },
+    {
+      "from": "object-selected",
+      "to": "objects-list",
+      "trigger": "inspector-close",
+      "direction": "pop",
+      "panels_changed": ["inspector"]
+    }
+  ]
+}
