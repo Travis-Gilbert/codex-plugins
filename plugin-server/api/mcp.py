@@ -484,7 +484,15 @@ def _handle_jsonrpc(body):
     })
 
 
-# ---------- Streamable HTTP Transport (claude.ai, modern clients) ----------
+# ---------- Shared state and helpers ----------
+
+# In-memory session store
+_sessions: dict[str, dict] = {}
+
+
+def _sse_event(event_type: str, data) -> str:
+    """Format an SSE event."""
+    return f"event: {event_type}\ndata: {json.dumps(data)}\n\n"
 
 
 def _add_cors(response):
@@ -497,15 +505,17 @@ def _add_cors(response):
     return response
 
 
+# ---------- Streamable HTTP Transport (primary MCP endpoint) ----------
+
+
 @csrf_exempt
 def mcp_streamable(request):
     """
     Universal MCP endpoint — handles both transports at a single URL.
 
-    - GET:     SSE transport (claude.ai, older clients). Creates a session
-               and sends an 'endpoint' event with the POST URL.
-    - POST:    Streamable HTTP (modern clients) OR SSE message handler
-               (when ?session_id= is present).
+    - GET:     Returns SSE stream if Accept: text/event-stream is present,
+               otherwise returns JSON server info (for discovery/health checks).
+    - POST:    Streamable HTTP JSON-RPC handler.
     - DELETE:  Session cleanup.
     - OPTIONS: CORS preflight.
     """
@@ -514,28 +524,39 @@ def mcp_streamable(request):
         return _add_cors(JsonResponse({}, status=204))
 
     if request.method == "GET":
-        # SSE transport: create session, send endpoint URL for POSTing messages
-        session_id = str(uuid.uuid4())
-        _sessions[session_id] = {"initialized": False}
+        accept = request.headers.get("Accept", "")
 
-        def event_stream():
-            yield _sse_event(
-                "endpoint",
-                f"/mcp/?session_id={session_id}",
+        # If client wants SSE, serve SSE transport
+        if "text/event-stream" in accept:
+            session_id = str(uuid.uuid4())
+            _sessions[session_id] = {"initialized": False}
+
+            def event_stream():
+                yield _sse_event(
+                    "endpoint",
+                    f"/mcp/?session_id={session_id}",
+                )
+                import time
+                for _ in range(600):  # ~10 min max
+                    time.sleep(1)
+                    yield ": keepalive\n\n"
+
+            response = StreamingHttpResponse(
+                event_stream(),
+                content_type="text/event-stream",
             )
-            # Keep connection alive with periodic comments
-            import time
-            for _ in range(600):  # ~10 min max
-                time.sleep(1)
-                yield ": keepalive\n\n"
+            response["Cache-Control"] = "no-cache"
+            response["X-Accel-Buffering"] = "no"
+            return _add_cors(response)
 
-        response = StreamingHttpResponse(
-            event_stream(),
-            content_type="text/event-stream",
-        )
-        response["Cache-Control"] = "no-cache"
-        response["X-Accel-Buffering"] = "no"
-        return _add_cors(response)
+        # Otherwise return JSON server info (for discovery / reachability checks)
+        return _add_cors(JsonResponse({
+            "name": "codex-plugin-server",
+            "version": "1.0.0",
+            "protocol": "mcp",
+            "protocolVersion": "2024-11-05",
+            "capabilities": {"tools": True},
+        }))
 
     if request.method == "POST":
         try:
@@ -584,14 +605,6 @@ def mcp_streamable(request):
 
 
 # ---------- Legacy SSE Transport (Claude Code, older clients) ----------
-
-# In-memory session store
-_sessions: dict[str, dict] = {}
-
-
-def _sse_event(event_type: str, data) -> str:
-    """Format an SSE event."""
-    return f"event: {event_type}\ndata: {json.dumps(data)}\n\n"
 
 
 @require_GET

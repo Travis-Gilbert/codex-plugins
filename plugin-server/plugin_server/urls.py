@@ -15,7 +15,8 @@ urlpatterns = [
     path("health/", health, name="health"),
     path("admin/", admin.site.urls),
     path("api/", api.urls),
-    # Streamable HTTP — primary MCP endpoint (claude.ai, modern clients)
+    # Streamable HTTP — primary MCP endpoint (both with and without trailing slash)
+    path("mcp", mcp_streamable, name="mcp-noslash"),
     path("mcp/", mcp_streamable, name="mcp"),
     # Legacy SSE transport (Claude Code with --transport sse)
     path("mcp/sse/", mcp_sse, name="mcp-sse"),
