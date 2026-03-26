@@ -507,10 +507,18 @@ def trigger_sync(request):
     if not admin_key or token != admin_key:
         return 403, ErrorResponse(detail="Invalid or missing admin key")
 
+    import logging
     from django.core.management import call_command
 
+    logger = logging.getLogger("plugins.sync")
+
     def run_sync():
-        call_command("sync_plugins")
+        try:
+            logger.info("sync_plugins: starting")
+            call_command("sync_plugins")
+            logger.info("sync_plugins: completed successfully")
+        except Exception:
+            logger.exception("sync_plugins: FAILED")
 
     thread = threading.Thread(target=run_sync, daemon=True)
     thread.start()

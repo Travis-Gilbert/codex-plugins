@@ -115,3 +115,24 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 PLUGIN_SERVER_ADMIN_KEY = os.environ.get("PLUGIN_SERVER_ADMIN_KEY", "")
 GITHUB_REPO = "Travis-Gilbert/Plugins-building"
 REPO_CLONE_DIR = BASE_DIR / "repo_cache"
+
+# Logging — ensure sync errors surface in Railway deploy logs
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "plugins": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        "plugins.sync": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    },
+}
