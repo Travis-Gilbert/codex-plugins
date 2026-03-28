@@ -1,0 +1,130 @@
+{
+  "objects": {
+    "url": "/api/objects/",
+    "method": "GET",
+    "response": {
+      "count": 3,
+      "next": null,
+      "previous": null,
+      "results": [
+        {
+          "id": 1,
+          "title": "Observation Framework",
+          "content": "The Observation framework provides a Swift-native implementation of the observer pattern.",
+          "object_type": "claim",
+          "slug": "observation-framework",
+          "created_at": "2025-01-15T10:30:00Z",
+          "updated_at": "2025-03-20T14:22:00Z",
+          "is_deleted": false
+        },
+        {
+          "id": 2,
+          "title": "Swift 6 Concurrency Model",
+          "content": "Swift 6 enforces strict concurrency checking at compile time, eliminating data races.",
+          "object_type": "claim",
+          "slug": "swift-6-concurrency-model",
+          "created_at": "2025-02-01T09:00:00Z",
+          "updated_at": "2025-03-18T11:45:00Z",
+          "is_deleted": false
+        },
+        {
+          "id": 3,
+          "title": "SwiftData vs Core Data",
+          "content": "SwiftData replaces Core Data for most iOS 17+ use cases with declarative @Model macros.",
+          "object_type": "question",
+          "slug": "swiftdata-vs-core-data",
+          "created_at": "2025-02-10T16:00:00Z",
+          "updated_at": "2025-03-15T08:30:00Z",
+          "is_deleted": false
+        }
+      ]
+    }
+  },
+  "object_detail": {
+    "url": "/api/objects/1/",
+    "method": "GET",
+    "response": {
+      "id": 1,
+      "title": "Observation Framework",
+      "content": "The Observation framework provides a Swift-native implementation of the observer pattern.",
+      "object_type": "claim",
+      "slug": "observation-framework",
+      "created_at": "2025-01-15T10:30:00Z",
+      "updated_at": "2025-03-20T14:22:00Z",
+      "is_deleted": false,
+      "outgoing_edges": [
+        {
+          "id": 1,
+          "edge_type": "supports",
+          "strength": 0.85,
+          "to_object": {
+            "id": 2,
+            "title": "Swift 6 Concurrency Model",
+            "object_type": "claim"
+          }
+        }
+      ],
+      "incoming_edges": []
+    }
+  },
+  "edges": {
+    "url": "/api/edges/",
+    "method": "GET",
+    "response": {
+      "count": 1,
+      "results": [
+        {
+          "id": 1,
+          "edge_type": "supports",
+          "strength": 0.85,
+          "from_object": 1,
+          "to_object": 2,
+          "created_at": "2025-02-05T12:00:00Z"
+        }
+      ]
+    }
+  },
+  "search": {
+    "url": "/api/search/?q=swift",
+    "method": "GET",
+    "response": {
+      "count": 2,
+      "results": [
+        {
+          "id": 2,
+          "title": "Swift 6 Concurrency Model",
+          "object_type": "claim",
+          "relevance": 0.95
+        },
+        {
+          "id": 3,
+          "title": "SwiftData vs Core Data",
+          "object_type": "question",
+          "relevance": 0.78
+        }
+      ]
+    }
+  },
+  "auth_token": {
+    "url": "/api/token/",
+    "method": "POST",
+    "request": {
+      "username": "testuser",
+      "password": "testpass123"
+    },
+    "response": {
+      "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExMTIzNDU2fQ.example",
+      "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxMTcyODI1Nn0.example"
+    }
+  },
+  "auth_refresh": {
+    "url": "/api/token/refresh/",
+    "method": "POST",
+    "request": {
+      "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+    },
+    "response": {
+      "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.new_token_here.example"
+    }
+  }
+}

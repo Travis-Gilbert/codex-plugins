@@ -1,0 +1,18 @@
+{
+  "name": "swift-pro",
+  "version": "1.0.0",
+  "description": "Native iOS and macOS development plugin with deep expertise in SwiftUI, Swift 6 concurrency, SwiftData, XcodeBuildMCP integration, and Apple platform conventions.",
+  "author": {
+    "name": "Travis Gilbert"
+  },
+  "keywords": [
+    "swift",
+    "ios",
+    "macos",
+    "swiftui",
+    "swiftdata",
+    "xcode",
+    "apple",
+    "native"
+  ]
+}

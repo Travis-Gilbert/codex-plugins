@@ -1,0 +1,5 @@
+.DS_Store
+*.local.md
+.claude/*.local.md
+knowledge/session_log/
+knowledge/.review_queue.json

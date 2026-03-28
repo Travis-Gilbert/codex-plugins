@@ -1,0 +1,13 @@
+{
+  "PreToolUse": [
+    {
+      "matcher": "Write|Edit",
+      "hooks": [
+        {
+          "type": "prompt",
+          "prompt": "If the file being written/edited is a .swift file, verify: (1) No use of ObservableObject or @Published — use @Observable and @Bindable instead, (2) No use of NavigationView — use NavigationStack, (3) No force unwrapping (!) without justification, (4) SwiftUI view body is under 100 lines. If any violations found, suggest the modern alternative."
+        }
+      ]
+    }
+  ]
+}
